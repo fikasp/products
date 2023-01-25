@@ -3,7 +3,7 @@ import '../style.css';
 
 export default class Header extends React.Component {
   state = {
-    hello: "Hello !"
+    hello: "Hello world !"
   }
 
   render() {
