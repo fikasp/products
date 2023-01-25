@@ -1,7 +1,7 @@
 import React from "react";
 import Header from './components/Header'
 import Welcome from './components/Welcome'
-import "./style.css";
+import "./style.scss";
 
 let przemek = "Przemek"
 let mariusz = "Mariusz"
