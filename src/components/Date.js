@@ -3,13 +3,13 @@ import '../style.scss';
 
 export default class Date extends React.Component {
   state = {
-    date: new Date()
+    date: 0
   }
   
   componentDidMount() {
-    this.interval = setInterval( 
-      () => {this.setState( {date: new Date() } ) }, 1000
-    )
+    this.interval = setInterval( () => {
+      this.setState( {date: this.state.date +=0.5 } ) 
+    }, 1000 )
   }
 
   render() {
