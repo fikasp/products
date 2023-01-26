@@ -13,6 +13,7 @@ export default function App() {
       <Header welcome="Hello!"/>
       <Welcome name={przemek} />
       <Welcome name={mariusz} />
+      <Date />
     </div>
   );
 }
