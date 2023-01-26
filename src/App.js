@@ -10,7 +10,7 @@ let mariusz = "Mariusz"
 export default function App() {
   return (
     <div>
-      <Header />
+      <Header welcome="Hello!"/>
       <Welcome name={przemek} />
       <Welcome name={mariusz} />
     </div>
