@@ -1,20 +1,19 @@
 import React from "react";
 import Header from './components/Header'
 import Welcome from './components/Welcome'
-import Counter from './components/Counter'
+import Auth from "./components/Auth";
 import "./style.scss";
 
 export default function App() {
   return (
-    <div>
+    <div className="container">
       <Header welcome="Hello you!"/>
       
       <Welcome name="Przemek" greet="Witaj"/>
       <Welcome name="Mariusz" greet="Heyka"/>
       <Welcome name="Klaudia" greet=":)"/>
 
-      <Counter start={10} step={1} />
-      <Counter start={20} step={2} />
+      <Auth login={false} />
     </div>
   );
 }

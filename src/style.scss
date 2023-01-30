@@ -1,24 +1,58 @@
+$media-large: 1900px;
+$media-medium: 1000px;
+$font-family: verdana, sans-serif;
+$font-size: 14px;
+$color-light: #fff;
+$color-dark: #000;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  padding: 10px;
-  background: #000;
-  color: #fff;
-}
-
-h1, p {
-  line-height: 1.5;
-  font-family: Verdana;
+html {
+  color: $color-light;
+  background: $color-dark;
+  font-family: $font-family;
+  font-size: $font-size;
+  @media (min-width: $media-medium) {
+    font-size: $font-size + 2px;
+  }
+  @media (min-width: $media-large) {
+    font-size: $font-size + 4px;
+  }
 }
 
 input {
+  flex-grow: 1;
   padding: 10px;
-  margin: 10px 0;
-  &:focus::placeholder {
-    visibility: hidden;
-  }
+  margin: 10px;
+  border: 1px solid #666;
+  border-bottom: 2px solid #666;
+  border-radius: 5px;
+  text-align: center;
+  background: #fff;
+  color: #000;
+  transition: background 0.5s;
+}
+input:focus {
+  background: #ace;
+  border-bottom: 2px solid #48a;
+}
+input::placeholder {
+  color: #ccc;
+}
+input:focus::placeholder {
+  visibility: hidden;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #111;
 }
