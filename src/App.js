@@ -1,6 +1,7 @@
 import React from "react";
 import Header from './components/Header'
 import Welcome from './components/Welcome'
+import Counter from './components/Counter'
 import Auth from "./components/Auth";
 import "./style.scss";
 
@@ -14,6 +15,7 @@ export default function App() {
       <Welcome name="Klaudia" greet=":)"/>
 
       <Auth login={false} />
+      <Counter />
     </div>
   );
 }
