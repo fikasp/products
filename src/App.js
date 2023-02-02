@@ -1,8 +1,7 @@
 import React from "react";
 import Header from './components/Header'
 import Welcome from './components/Welcome'
-import Counter from './components/Counter'
-import Auth from "./components/Auth";
+import Component from './components/Component'
 import "./style.scss";
 
 export default function App() {
@@ -14,8 +13,7 @@ export default function App() {
       <Welcome name="Mariusz" greet="Heyka"/>
       <Welcome name="Klaudia" greet=":)"/>
 
-      <Auth login={false} />
-      <Counter />
+      <Component name="Component"/>
     </div>
   );
 }
