@@ -1,30 +1,20 @@
 import React from 'react';
-import '../style.scss';
 
-export default class Header extends React.Component {
-  state = {
-    hello: "Hello world !"
-  }
-
-  change = (evt) => {
-    let hello = evt.target.value
-    if (hello) {
-      this.setState({hello: hello})
-    } else {
-      this.setState({hello: this.props.welcome})
-    }
-  }
-
-  componentDidMount() {
-    this.setState({hello: this.props.welcome})
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>{this.state.hello}</h1>
-        <input type="text" onChange={this.change} placeholder="Enter text"/>
+export default function Header(){
+  return (
+    <header className="header">
+      <div className="logo">
+          ARW Shop
+        {/* <img src="logo.png" alt="Logo" /> */}
       </div>
-    )
-  }
-}
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+  );
+};

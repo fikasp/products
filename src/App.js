@@ -1,19 +1,14 @@
 import React from "react";
-import Header from './components/Header'
-import Welcome from './components/Welcome'
-import Component from './components/Component'
+import Header from "./components/Header";
+import ProductsList from "./components/ProductsList";
+
 import "./style.scss";
 
 export default function App() {
   return (
-    <div className="container">
-      <Header welcome="Hello you!"/>
-      
-      <Welcome name="Przemek" greet="Witaj"/>
-      <Welcome name="Mariusz" greet="Heyka"/>
-      <Welcome name="Klaudia" greet=":)"/>
-
-      <Component name="Component"/>
+    <div>
+      <Header />
+      <ProductsList />
     </div>
   );
 }
