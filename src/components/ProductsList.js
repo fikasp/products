@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { formatNumber as format } from './Tools' 
+import ProductInputs from './ProductInputs'
 import Product from './Product';
 import Modal from './Modal';
 
@@ -55,6 +56,10 @@ export default function ProductsList() {
   };
 
   const updateProduct = () => {
+    if (!editingProduct.name || !editingProduct.price) {
+      setShowModal(true);
+      return;
+    }
     setProducts(products.map((product) =>
     product.id === editingProduct.id
       ? editingProduct
@@ -80,7 +85,33 @@ export default function ProductsList() {
 
   return (
     <div className="product-list">
-      { !editingProduct.id ? (
+
+      {!editingProduct.id ? (
+
+        <ProductInputs
+          mode="add"
+          name={newProduct.name}
+          price={newProduct.price}
+          onChangeName={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+          onChangePrice={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })}
+          onClick={addProduct}
+          onKeyDown={handleEnter(addProduct)}
+        />
+      ) : (
+
+        <ProductInputs
+          mode="edit"
+          name={editingProduct.name}
+          price={editingProduct.price}
+          onChangeName={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
+          onChangePrice={(e) => setEditingProduct({ ...editingProduct, price: Number(e.target.value) })}
+          onClick={updateProduct}
+          onKeyDown={handleEnter(updateProduct)}
+          cancel={cancelEditing}
+        />
+      )}
+
+      {/* { !editingProduct.id ? (
 
         <div className="add-product">
           <input
@@ -126,8 +157,7 @@ export default function ProductsList() {
             <button onClick={cancelEditing}>Cancel</button>
           </div>
         </div>
-
-      )}
+      )} */}
 
       <div>
         {products.map(product => (
