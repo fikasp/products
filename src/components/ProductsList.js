@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { formatNumber as format } from './Tools' 
-import ProductInputs from './ProductInputs'
+import ProductForm from './ProductForm'
 import Product from './Product';
 import Modal from './Modal';
+import Total from './Total'
 
 let index = 0;
 export default function ProductsList() {
 
+  // states
   const [products, setProducts] = useState([
     { id: -3, name: "Product 1", price: 10 },
     { id: -2, name: "Product 2", price: 20 },
@@ -18,12 +19,25 @@ export default function ProductsList() {
   const [total, setTotal] = useState(0);
   const modalRef = React.useRef(null);
 
+  // effects
   React.useEffect(() => {
-    console.log(index)
     console.log(products)
+    focusModal()
+    countTotal()    
+  },[
+    showModal,
+    products
+  ]);
+
+  // focus modal
+  const focusModal = () => {
     if (showModal) {
       modalRef.current.focus();
     }
+  }
+
+  // count total
+  const countTotal = () => {
     if (products.length === 0) {
       setTotal(0);
     } else {
@@ -33,8 +47,9 @@ export default function ProductsList() {
         }, 0)
       );
     }
-  }, [products, showModal]);
+  }
 
+  // add product
   const addProduct = () => {
     index++;
     if (!newProduct.name || !newProduct.price) {
@@ -50,6 +65,7 @@ export default function ProductsList() {
     setShowModal(false)
   };
 
+  // edit product
   const editProduct = (productId) => {
     const product = products.find(p => p.id === productId);
     setEditingProduct(product);
@@ -61,11 +77,11 @@ export default function ProductsList() {
       return;
     }
     setProducts(products.map((product) =>
-    product.id === editingProduct.id
-      ? editingProduct
-      : product
-      )
-    );
+      product.id === editingProduct.id
+        ? editingProduct
+        : product
+        )
+      );
     setEditingProduct({});
   };
 
@@ -73,109 +89,49 @@ export default function ProductsList() {
     setEditingProduct({});
   };
 
+  // remove product
   const removeProduct = productId => {
     setProducts(products.filter(product => product.id !== productId));
   };
 
-  const handleEnter = callback => (event) => {
-    if (event.key === "Enter") {
-      callback();
-    }
-  };
-
+  // render
   return (
     <div className="product-list">
 
-      {!editingProduct.id ? (
-
-        <ProductInputs
-          mode="add"
-          name={newProduct.name}
-          price={newProduct.price}
-          onChangeName={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-          onChangePrice={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })}
-          onClick={addProduct}
-          onKeyDown={handleEnter(addProduct)}
-        />
-      ) : (
-
-        <ProductInputs
-          mode="edit"
-          name={editingProduct.name}
-          price={editingProduct.price}
-          onChangeName={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-          onChangePrice={(e) => setEditingProduct({ ...editingProduct, price: Number(e.target.value) })}
-          onClick={updateProduct}
-          onKeyDown={handleEnter(updateProduct)}
-          cancel={cancelEditing}
-        />
-      )}
-
-      {/* { !editingProduct.id ? (
-
-        <div className="add-product">
-          <input
-            type="text"
-            placeholder="Product Name"
-            value={newProduct.name}
-            onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
-            onKeyDown={handleEnter(addProduct)}
-          />
-          <input
-            type="number"
-            placeholder="Product Price"
-            value={newProduct.price}
-            onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})}
-            onKeyDown={handleEnter(addProduct)}
-          />
-          <div className="buttons">
-            <button onClick={addProduct}>Add Product</button>
-          </div>
-        </div>
-
-        ) : (
-          
-        <div className="edit-product">
-          <input
-            type="text"
-            placeholder="Product Name"
-            value={editingProduct.name}
-            onChange={(e) => 
-              setEditingProduct({...editingProduct, name: e.target.value})}
-            onKeyDown={handleEnter(updateProduct)}            
-          />
-          <input
-            type="number"
-            placeholder="Product Price"
-            value={editingProduct.price}
-            onChange={(e) => 
-              setEditingProduct({ ...editingProduct, price: Number(e.target.value) })}
-            onKeyDown={handleEnter(updateProduct)}
-          />
-          <div className="buttons">
-            <button onClick={updateProduct}>Update</button>
-            <button onClick={cancelEditing}>Cancel</button>
-          </div>
-        </div>
-      )} */}
-
-      <div>
-        {products.map(product => (
-          <Product 
-            key={product.id} 
-            product={product} 
-            removeProduct={removeProduct} 
-            editProduct={editProduct} 
-          />
-        ))}
-      </div>
-
-      <div className="total">Total: <span>{format(total)}</span> $</div>
-      
       { showModal && 
         <Modal modalRef={modalRef} setShowModal={setShowModal} /> 
       }
 
+      {!editingProduct.id ? (
+        // add mode
+        <ProductForm
+          mode="add"
+          product={newProduct}
+          setProduct={setNewProduct}
+          onClick={addProduct}
+        />
+      ) : (
+        // edit mode
+        <ProductForm
+          mode="edit"
+          product={editingProduct}
+          setProduct={setEditingProduct}
+          onClick={updateProduct}
+          onCancel={cancelEditing}
+        />
+      )}
+
+      {products.map(product => (
+        <Product 
+          key={product.id} 
+          product={product} 
+          removeProduct={removeProduct} 
+          editProduct={editProduct} 
+        />
+      ))}
+
+      <Total total={total} />
+      
     </div>
   );
 };
