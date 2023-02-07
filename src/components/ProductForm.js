@@ -1,9 +1,9 @@
 import React from 'react';
 
 export default function ProductForm ({ mode, product, setProduct, onClick, onCancel }) {
-  const handleEnter = callback => (event) => {
-    if (event.key === "Enter") {
-      callback();
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      onClick();
     }
   };
   return (
@@ -14,7 +14,7 @@ export default function ProductForm ({ mode, product, setProduct, onClick, onCan
         placeholder="Product Name"
         value={product.name}
         onChange={(e) => setProduct({ ...product, name: e.target.value })}
-        onKeyDown={handleEnter(onClick)}
+        onKeyDown={(e) => handleEnter(e)}
       />
 
       <input
@@ -22,7 +22,7 @@ export default function ProductForm ({ mode, product, setProduct, onClick, onCan
         placeholder="Product Price"
         value={product.price}
         onChange={(e) => setProduct({ ...product, price: Number(e.target.value) })}
-        onKeyDown={handleEnter(onClick)}
+        onKeyDown={(e) => handleEnter(e)}
       />
 
       <div className="buttons">

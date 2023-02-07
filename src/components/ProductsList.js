@@ -19,6 +19,7 @@ export default function ProductsList() {
   const [total, setTotal] = useState(0);
   const modalRef = React.useRef(null);
 
+
   // effects
   React.useEffect(() => {
     console.log(products)
