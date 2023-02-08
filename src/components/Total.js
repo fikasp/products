@@ -1,10 +1,21 @@
 import React from 'react';
 import { formatNumber as format } from './Tools' 
+import { Consumer } from '../App'
 
 export default function Total({total}) {
   return (
     <div className="total">
-      Total: <span>{format(total)}</span> $
+      <Consumer>
+        {({klucz}) => (<div>{klucz}</div>)}
+      </Consumer>
+      <span>{format(total)}</span> $
+      
     </div>
   )
 }
+
+
+
+
+
+
